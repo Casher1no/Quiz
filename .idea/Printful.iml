@@ -2,10 +2,50 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/Back-End/src" isTestSource="false" packagePrefix="Casher1no\Printful\" />
+      <sourceFolder url="file://$MODULE_DIR$/Back-End/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/Back-End/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/Quiz/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/Quiz/src" isTestSource="false" packagePrefix="Casher1no\Printful\" />
+      <sourceFolder url="file://$MODULE_DIR$/Quiz/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/Back-End/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/collections" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/common" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/orm" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/doctrine/persistence" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/graham-campbell/result-type" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/laravel/serializable-closure" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/php-di/invoker" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/php-di/php-di" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/php-di/phpdoc-reader" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/phpoption/phpoption" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/cache-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/console" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/deprecation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/polyfill-intl-grapheme" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/polyfill-intl-normalizer" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/polyfill-php72" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/polyfill-php73" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/polyfill-php80" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/service-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/string" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/var-exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/Quiz/vendor/vlucas/phpdotenv" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

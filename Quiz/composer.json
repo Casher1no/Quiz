@@ -12,5 +12,12 @@
             "email": "maikls.zalkalns@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "doctrine/orm": "^2.11.0",
+        "doctrine/dbal": "^3.2",
+        "symfony/yaml": "^5.4",
+        "symfony/cache": "^5.4",
+        "php-di/php-di": "^6.4",
+        "vlucas/phpdotenv": "^5.5"
+    }
 }

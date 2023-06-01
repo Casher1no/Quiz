@@ -1,0 +1,16 @@
+{
+    "name": "casher1no/printful",
+    "description": "Quiz",
+    "autoload": {
+        "psr-4": {
+            "Casher1no\\Printful\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Maikls",
+            "email": "maikls.zalkalns@gmail.com"
+        }
+    ],
+    "require": {}
+}

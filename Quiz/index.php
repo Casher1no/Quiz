@@ -1,15 +1,15 @@
 <?php
 
-use Casher1no\Printful\Redirect;
-use Casher1no\Printful\Router;
-use Casher1no\Printful\View;
+use Casher1no\Printful\Router\Redirect;
+use Casher1no\Printful\Router\Routes;
+use Casher1no\Printful\Router\View;
 
 require 'vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-$dispatcher = Router::Dispatcher();
+$dispatcher = Routes::Dispatcher();
 
 // Fetch method and URI from somewhere
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -50,3 +50,6 @@ switch ($routeInfo[0]) {
         }
         break;
 }
+
+?>
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Casher1no\Printful;
+namespace Casher1no\Printful\Router;
 
 class Redirect
 {

@@ -2,14 +2,9 @@
 
 namespace Casher1no\Printful\Infrastructure\Controllers;
 
-use Casher1no\Printful\Router\View;
 
 class HomeController
 {
-    public function home(): View
-    {
-        return new View('index');
-    }
 
     public function api(): array
     {

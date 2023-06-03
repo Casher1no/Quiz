@@ -1,14 +1,19 @@
 <?php
 
-use Casher1no\Printful\Router\Routes;
+use Casher1no\Printful\DI\config;
+use Casher1no\Printful\DI\Container;
+use Casher1no\Printful\Router\RestApi;
+use DI\ContainerBuilder;
 use FastRoute\Dispatcher;
 
 require 'vendor/autoload.php';
 
+Container::build();
+
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-$dispatcher = Routes::Dispatcher();
+$dispatcher = RestApi::Dispatcher();
 
 // Fetch method and URI from somewhere
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -39,7 +44,7 @@ switch ($routeInfo[0]) {
 
         // Call the route handler with the parameters
         [$controllerClass, $method] = $handler;
-        $controller = new $controllerClass();
+        $controller = new $controllerClass(Container::getContainer()->get($controllerClass));
         $response = $controller->$method($vars);
 
         // Send the JSON response

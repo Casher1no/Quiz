@@ -11,8 +11,7 @@ class Routes
     public static function Dispatcher(): Dispatcher
     {
         return FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
-            $r->addRoute('GET', '/', [HomeController::class, 'home']);
-            $r->addRoute('GET', '/api', [HomeController::class, 'api']);
+            $r->get( '/api', [HomeController::class, 'api']);
         });
     }
 }

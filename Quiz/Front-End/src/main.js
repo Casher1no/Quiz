@@ -1,9 +1,9 @@
 const axios = require('axios');
 
-axios.get('http://localhost:8000/api')
+axios.get('/api')
     .then(function (response) {
         // handle success
-        console.log(response);
+        console.log(response.data);
     })
     .catch(function (error) {
         // handle error

@@ -12,9 +12,13 @@ class HomeController
         return new View('index');
     }
 
-    public function api(): string
+    public function api(): array
     {
-        return json_encode("values");
+        $users = [
+            ['id' => 1, 'name' => 'John'],
+            ['id' => 2, 'name' => 'Jane'],
+        ];
+        return $users;
     }
 
 }

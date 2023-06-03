@@ -1,5 +1,5 @@
 <template>
-
+  <h1>{{ sessionName }}</h1>
   <v-sheet width="300" class="ma-auto">
     <h1 class="text-center">Technical task</h1>
     <v-form ref="form">
@@ -33,10 +33,13 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
     valid: true,
     name: '',
+    sessionName: '',
     nameRules: [
       v => !!v || 'Name is required',
     ],
@@ -53,7 +56,16 @@ export default {
     async validate() {
       const {valid} = await this.$refs.form.validate()
 
-      if (valid) alert('Form is valid')
+      if (valid) {
+        this.sessionName = sessionStorage.getItem('username');
+        this.axios.post('http://localhost:8000/api', {
+          username: name,
+        }).then(function (response) {
+          console.log(response);
+        })
+
+        alert('Form is valid')
+      }
     },
     reset() {
       this.$refs.form.reset()

@@ -1,12 +1,22 @@
 <?php
 
-use Casher1no\Printful\DI\config;
 use Casher1no\Printful\DI\Container;
 use Casher1no\Printful\Router\RestApi;
-use DI\ContainerBuilder;
 use FastRoute\Dispatcher;
 
 require 'vendor/autoload.php';
+
+// Allow from any origin
+header('Access-Control-Allow-Origin: *');
+
+// Allow specific methods
+header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE');
+
+// Allow specific headers
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
+// Allow credentials (if needed)
+header('Access-Control-Allow-Credentials: true');
 
 Container::build();
 
@@ -44,11 +54,17 @@ switch ($routeInfo[0]) {
 
         // Call the route handler with the parameters
         [$controllerClass, $method] = $handler;
-        $controller = new $controllerClass(Container::getContainer()->get($controllerClass));
+        if (Container::getContainer()->has($controllerClass)) {
+            $controller = new $controllerClass(Container::getContainer()->get($controllerClass));
+        } else {
+            $controller = new $controllerClass();
+        }
         $response = $controller->$method($vars);
 
         // Send the JSON response
         header('Content-Type: application/json');
+
+
         echo json_encode($response);
         break;
 }

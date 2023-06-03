@@ -2,7 +2,7 @@
 
 namespace Casher1no\Printful\Router;
 
-use Casher1no\Printful\Controllers\HomeController;
+use Casher1no\Printful\Infrastructure\Controllers\HomeController;
 use FastRoute;
 use FastRoute\Dispatcher;
 

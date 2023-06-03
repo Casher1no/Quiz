@@ -1,9 +1,8 @@
 <?php
 
-namespace Casher1no\Printful\Controllers;
+namespace Casher1no\Printful\Infrastructure\Controllers;
 
 use Casher1no\Printful\Router\View;
-use PHPUnit\Util\Json;
 
 class HomeController
 {

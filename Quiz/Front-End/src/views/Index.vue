@@ -1,6 +1,6 @@
 <template>
 
-  <v-sheet width="300" class="ma-auto ">
+  <v-sheet width="300" class="ma-auto">
     <h1 class="text-center">Technical task</h1>
     <v-form ref="form">
       <v-text-field

@@ -1,23 +1,13 @@
 <?php
 
 use Casher1no\Printful\DI\Container;
+use Casher1no\Printful\Infrastructure\CORS;
 use Casher1no\Printful\Router\RestApi;
 use FastRoute\Dispatcher;
 
 require 'vendor/autoload.php';
 
-// Allow from any origin
-header('Access-Control-Allow-Origin: *');
-
-// Allow specific methods
-header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE');
-
-// Allow specific headers
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
-
-// Allow credentials (if needed)
-header('Access-Control-Allow-Credentials: true');
-
+CORS::setUp();
 Container::build();
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);

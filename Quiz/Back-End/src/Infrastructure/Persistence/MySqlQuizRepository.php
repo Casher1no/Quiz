@@ -58,15 +58,23 @@ class MySqlQuizRepository implements QuizRepository
             ->fetchAll();
     }
 
-    public function answerQuestion(AnswerId $answerId, User $user): void
+    public function answerQuestion(array $answerIds, QuestionId $questionId, User $user): void
     {
         $db = $this->repository::connection();
-        $db->createQueryBuilder()
+        $qb = $db->createQueryBuilder()
             ->insert('user_answer')
             ->setValue('user_id', '?')
             ->setValue('question_answer_id', '?')
             ->setParameter(0, $user->id())
-            ->setParameter(1, $answerId->id())
-            ->execute();
+            ->setParameter(1, $questionId->id());
+
+        $parameterCount = 2;
+        foreach ($answerIds as $answerId) {
+            $qb->setValue('answer_id' . $parameterCount, '?')
+                ->setParameter($parameterCount, $answerId);
+            $parameterCount++;
+        }
+
+        $qb->execute();
     }
 }

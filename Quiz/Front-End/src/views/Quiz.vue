@@ -28,7 +28,7 @@
             block
             @click="nextQuestion"
           >
-            Next
+            {{ testActive() }}
           </v-btn>
         </div>
         <v-progress-linear
@@ -45,6 +45,7 @@
 
 <script>
 import axios from "axios";
+import router from "@/router";
 
 export default {
   data: () => ({
@@ -56,6 +57,7 @@ export default {
     questionCount: 0,
     options: [],
     selectedItems: [],
+    answers: [],
   }),
   mounted() {
     this.userId = this.$route.params.id;
@@ -75,30 +77,39 @@ export default {
         this.options = this.quiz[this.questionIndex].answers;
       } catch (error) {
         console.error('Error fetching quiz:', error);
+        await router.push('/');
       }
     },
-    async sendAnswer() {
-      axios.post('http://localhost:8000/answer', {
-        answers: this.getIdByAnswer(),
-        questionId: this.quiz[this.questionIndex].question_id,
-        userId: this.userId
-      }).then(function (response) {
-        console.log(response.data)
-      });
+    testActive(){
+       if(this.questionIndex !== this.questionCount){
+         return "NEXT";
+       }else{
+         return "Finish";
+       }
+
     },
     nextQuestion() {
       if (!this.selectedItems.length) return;
       this.questionIndex++;
+
+      if(this.questionIndex + 1 > this.questionCount){
+        console.log(this.answers);
+        router.push('/result')
+      }
+      this.answers.push(this.selectedItems);
+
+      console.log(this.questionIndex)
+      console.log(this.questionCount)
 
       this.progress = (this.questionIndex) / this.questionCount * 100;
 
       this.question = this.quiz[this.questionIndex].question;
       this.options = this.quiz[this.questionIndex].answers;
 
-      // Send to Database
-      this.sendAnswer();
-      // ---
+
+
       this.selectedItems = [];
+
     },
     getIdByAnswer() {
       return this.quiz[this.questionIndex].answers

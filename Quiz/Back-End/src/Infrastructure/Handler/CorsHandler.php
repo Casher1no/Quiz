@@ -1,8 +1,8 @@
 <?php
 
-namespace Casher1no\Printful\Infrastructure;
+namespace Casher1no\Printful\Infrastructure\Handler;
 
-class CORS
+class CorsHandler
 {
     public static function setUp(): void
     {

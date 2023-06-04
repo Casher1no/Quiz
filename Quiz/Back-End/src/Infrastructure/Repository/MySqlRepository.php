@@ -1,10 +1,11 @@
 <?php
 
-namespace Casher1no\Printful\Repository {
+namespace Casher1no\Printful\Infrastructure\Repository {
 
+    use Casher1no\Printful\Infrastructure\Repository\Repository;
     use http\Exception\InvalidArgumentException;
 
-    class MySql
+    class MySqlRepository implements Repository
     {
         private static $connection = null;
 
@@ -27,5 +28,7 @@ namespace Casher1no\Printful\Repository {
                 Throw new InvalidArgumentException($e);
             }
         }
+
+
     }
 }

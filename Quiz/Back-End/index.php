@@ -1,13 +1,13 @@
 <?php
 
 use Casher1no\Printful\DI\Container;
-use Casher1no\Printful\Infrastructure\CORS;
+use Casher1no\Printful\Infrastructure\Handler\CorsHandler;
 use Casher1no\Printful\Router\RestApi;
 use FastRoute\Dispatcher;
 
 require 'vendor/autoload.php';
 
-CORS::setUp();
+CorsHandler::setUp();
 Container::build();
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);

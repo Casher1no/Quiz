@@ -12,9 +12,10 @@
 
       <v-select
         v-model="select"
-        :items="items"
-        :rules="[v => !!v || 'Item is required']"
-        label="Choose test"
+        :items="questionItems"
+        item-value="question"
+        label="Choose an item"
+        return-object
         required
       ></v-select>
 
@@ -34,6 +35,7 @@
 
 <script>
 import axios from "axios";
+import router from "@/router";
 
 export default {
   data: () => ({
@@ -44,27 +46,29 @@ export default {
       v => !!v || 'Name is required',
     ],
     select: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
+    questions: [
+      {id:1, question: 'Item 1'},
+      {id:2, question: 'Item 2'},
+      {id:3, question: 'Item 3'},
+      {id:4, question: 'Item 4'},
     ],
   }),
-
+  computed: {
+    questionItems() {
+      return this.questions.map(item => item.question);
+    },
+  },
   methods: {
     async validate() {
       const {valid} = await this.$refs.form.validate()
+      const id = this.getIdByQuestion(this.select);
 
       if (valid) {
-        this.sessionName = sessionStorage.getItem('username');
         this.axios.post('http://localhost:8000/api', {
-          username: name,
+          username: this.name,
         }).then(function (response) {
-          console.log(response);
+          router.push(`/quiz/${id}`)
         })
-
-        alert('Form is valid')
       }
     },
     reset() {
@@ -73,6 +77,10 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation()
     },
+    getIdByQuestion(question) {
+      const foundQuestion = this.questions.find(q => q.question === question);
+      return foundQuestion ? foundQuestion.id : null;
+    }
   },
 }
 </script>

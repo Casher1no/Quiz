@@ -16,11 +16,15 @@ class SessionController
 
     public function startSession(): array
     {
-        if (empty($_POST)) return ['error' => 'no username'];
-        $username = ['username' => $_POST['username']];
+        $requestPayload = json_decode(file_get_contents('php://input'), true);
 
+        if (empty($requestPayload['username'])) {
+            return ['error' => 'no username'];
+        }
+
+        $username = $requestPayload['username'];
 
         $this->startSessionService->__invoke(new StartSessionRequest($username));
-        return $username;
+        return ['username' => $username];
     }
 }

@@ -10,7 +10,7 @@ const routes = [
     component: Index,
   },
   {
-    path:'/quiz',
+    path:'/quiz/:id',
     component: Quiz,
   },
   {

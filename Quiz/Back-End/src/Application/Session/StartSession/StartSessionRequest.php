@@ -4,14 +4,14 @@ namespace Casher1no\Printful\Application\Session\StartSession;
 
 class StartSessionRequest
 {
-    private array $username;
+    private string $username;
 
-    public function __construct(array $username)
+    public function __construct(string $username)
     {
         $this->username = $username;
     }
 
-    public function username(): array
+    public function username(): string
     {
         return $this->username;
     }

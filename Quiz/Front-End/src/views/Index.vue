@@ -13,8 +13,8 @@
       <v-select
         v-model="select"
         :items="questionItems"
-        item-value="question"
-        label="Choose an item"
+        item-value="name"
+        label="Choose test"
         return-object
         required
       ></v-select>
@@ -38,51 +38,53 @@ import axios from "axios";
 import router from "@/router";
 
 export default {
-  data: () => ({
-    valid: true,
-    name: '',
-    sessionName: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-    ],
-    select: null,
-    questions: [
-      {id:1, question: 'Item 1'},
-      {id:2, question: 'Item 2'},
-      {id:3, question: 'Item 3'},
-      {id:4, question: 'Item 4'},
-    ],
-  }),
+  data() {
+    return {
+      valid: true,
+      name: '',
+      sessionName: '',
+      nameRules: [
+        v => !!v || 'Name is required',
+      ],
+      select: null,
+      questions: [],
+    };
+  },
   computed: {
     questionItems() {
-      return this.questions.map(item => item.question);
+      return this.questions.map(item => item.name);
     },
+  },
+  mounted() {
+    this.getQuestions();
   },
   methods: {
     async validate() {
-      const {valid} = await this.$refs.form.validate()
+      const {valid} = await this.$refs.form.validate();
       const id = this.getIdByQuestion(this.select);
 
       if (valid) {
-        this.axios.post('http://localhost:8000/api', {
+        axios.post('http://localhost:8000/api', {
           username: this.name,
         }).then(function (response) {
-          router.push(`/quiz/${id}`)
-        })
+          router.push(`/quiz/${id}`);
+        });
       }
     },
-    reset() {
-      this.$refs.form.reset()
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation()
+    async getQuestions() {
+      try {
+        const response = await axios.get('http://localhost:8000/quiz');
+        this.questions = response.data.questions;
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
     },
     getIdByQuestion(question) {
-      const foundQuestion = this.questions.find(q => q.question === question);
+      const foundQuestion = this.questions.find(q => q.name === question);
       return foundQuestion ? foundQuestion.id : null;
-    }
+    },
   },
-}
+};
 </script>
 
 <style scoped>

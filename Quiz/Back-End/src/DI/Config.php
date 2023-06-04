@@ -2,6 +2,7 @@
 
 namespace Casher1no\Printful\DI;
 
+use Casher1no\Printful\Application\Quiz\GetAllQuizzes\GetAllQuizzesService;
 use Casher1no\Printful\Application\Session\ClearSession\ClearSessionService;
 use Casher1no\Printful\Application\Session\GetSession\GetSessionService;
 use Casher1no\Printful\Application\Session\StartSession\StartSessionService;
@@ -39,8 +40,9 @@ class Config
                 return new SessionController($startSessionService, $getSessionService, $clearSessionService);
             },
             QuizController::class => function ($container) {
+                $getAllQuizzesService = $container->get(GetAllQuizzesService::class);
                 return new QuizController(
-                    $container->get(QuizRepository::class),
+                    $getAllQuizzesService
                 );
             },
 
@@ -53,6 +55,11 @@ class Config
             },
             ClearSessionService::class => function () {
                 return new ClearSessionService();
+            },
+            GetAllQuizzesService::class => function ($container) {
+                return new GetAllQuizzesService(
+                    $container->get(QuizRepository::class)
+                );
             }
 
         ];

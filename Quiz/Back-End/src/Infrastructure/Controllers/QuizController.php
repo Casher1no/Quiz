@@ -2,20 +2,21 @@
 
 namespace Casher1no\Printful\Infrastructure\Controllers;
 
+use Casher1no\Printful\Application\Quiz\GetAllQuizzes\GetAllQuizzesService;
 use Casher1no\Printful\Infrastructure\Persistence\Interfaces\QuizRepository;
 use Casher1no\Printful\Models\QuestionId;
 
 class QuizController
 {
-    private QuizRepository $repository;
+    private GetAllQuizzesService $getAllQuizzesService;
 
-    public function __construct(QuizRepository $repository)
+    public function __construct(GetAllQuizzesService $getAllQuizzesService)
     {
-        $this->repository = $repository;
+        $this->getAllQuizzesService = $getAllQuizzesService;
     }
 
     public function getAllQuizzes(): array
     {
-        return $this->repository->getQuizzes();
+        return $this->getAllQuizzesService->__invoke();
     }
 }

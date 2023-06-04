@@ -21,14 +21,26 @@ class MySqlUserRepository implements UserRepository
         $db = $this->repository::connection();
         return $db->createQueryBuilder()
             ->select("*")
-            ->from('question')
-
+            ->from('user')
+            ->where('id = ?')
+            ->setParameter(0, $id->id())
             ->execute()
             ->fetchAll();
     }
 
     public function getUserAnswers(UserId $id, TestId $testId)
     {
-        // TODO: Implement getUserAnswers() method.
+        $db = $this->repository::connection();
+        return $db->createQueryBuilder()
+            ->select("*")
+            ->from('user_answer')
+            ->where('id = :id')
+            ->andWhere('test_id = :testId')
+            ->setParameters([
+                'id' => $id->id(),
+                'testId' => $testId->id(),
+            ])
+            ->execute()
+            ->fetchAll();
     }
 }

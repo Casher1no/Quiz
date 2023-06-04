@@ -4,8 +4,10 @@ namespace Casher1no\Printful\Infrastructure\Persistence;
 
 use Casher1no\Printful\Infrastructure\Persistence\Interfaces\QuizRepository;
 use Casher1no\Printful\Infrastructure\Repository\Repository;
+use Casher1no\Printful\Models\AnswerId;
 use Casher1no\Printful\Models\QuestionId;
 use Casher1no\Printful\Models\TestId;
+use Casher1no\Printful\Models\UserId;
 
 class MySqlQuizRepository implements QuizRepository
 {
@@ -16,7 +18,7 @@ class MySqlQuizRepository implements QuizRepository
         $this->repository = $repository;
     }
 
-    public function getQuizzes()
+    public function getQuizzes(): array
     {
         $db = $this->repository::connection();
         return $db->createQueryBuilder()
@@ -28,7 +30,7 @@ class MySqlQuizRepository implements QuizRepository
 
     }
 
-    public function getQuestions(TestId $testId)
+    public function getQuestions(TestId $testId): array
     {
         $db = $this->repository::connection();
         return $db->createQueryBuilder()
@@ -40,7 +42,7 @@ class MySqlQuizRepository implements QuizRepository
             ->fetchAll();
     }
 
-    public function getAnswers(QuestionId $questionId)
+    public function getAnswers(QuestionId $questionId): array
     {
         $db = $this->repository::connection();
         return $db->createQueryBuilder()
@@ -50,5 +52,16 @@ class MySqlQuizRepository implements QuizRepository
             ->setParameter(0, $questionId->id())
             ->execute()
             ->fetchAll();
+    }
+
+    public function answerQuestion(AnswerId $answerId, UserId $userId): void
+    {
+        $db = $this->repository::connection();
+        $db->createQueryBuilder()
+            ->insert('user_answer')
+            ->setValue('user_id', '?')
+            ->setValue('question_answer_id', '?')
+            ->setParameter(0, $userId->id())
+            ->setParameter(1, $answerId->id());
     }
 }

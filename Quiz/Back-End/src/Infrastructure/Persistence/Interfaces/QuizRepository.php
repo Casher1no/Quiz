@@ -5,7 +5,7 @@ namespace Casher1no\Printful\Infrastructure\Persistence\Interfaces;
 use Casher1no\Printful\Models\AnswerId;
 use Casher1no\Printful\Models\QuestionId;
 use Casher1no\Printful\Models\TestId;
-use Casher1no\Printful\Models\UserId;
+use Casher1no\Printful\Models\User;
 
 interface QuizRepository
 {
@@ -15,5 +15,5 @@ interface QuizRepository
 
     public function getAnswers(array $questionIds): array;
 
-    public function answerQuestion(AnswerId $answerId, UserId $userId): void;
+    public function answerQuestion(AnswerId $answerId, User $user): void;
 }

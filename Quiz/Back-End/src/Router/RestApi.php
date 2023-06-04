@@ -2,10 +2,9 @@
 
 namespace Casher1no\Printful\Router;
 
-use Casher1no\Printful\DI\Container;
-use Casher1no\Printful\Infrastructure\Controllers\HomeController;
 use Casher1no\Printful\Infrastructure\Controllers\QuizController;
 use Casher1no\Printful\Infrastructure\Controllers\SessionController;
+use Casher1no\Printful\Infrastructure\Controllers\UserController;
 use FastRoute;
 use FastRoute\Dispatcher;
 
@@ -22,7 +21,10 @@ class RestApi
 
             // Quiz
             $r->get('/quiz', [QuizController::class, 'getAllQuizzes']);
-            $r->post('/quiz',[QuizController::class, 'getQuizQuestions']);
+            $r->post('/quiz', [QuizController::class, 'getQuizQuestions']);
+
+            // User
+            $r->post('/answer', [UserController::class, 'answer']);
         });
     }
 }

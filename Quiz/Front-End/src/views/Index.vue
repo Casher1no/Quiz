@@ -14,6 +14,7 @@
         v-model="select"
         :items="questionItems"
         item-value="name"
+        :rules="itemRules"
         label="Choose test"
         return-object
         required
@@ -46,6 +47,9 @@ export default {
       nameRules: [
         v => !!v || 'Name is required',
       ],
+      itemRules: [
+        v => !!v || 'Choose test',
+      ],
       select: null,
       questions: [],
     };
@@ -63,10 +67,11 @@ export default {
       const {valid} = await this.$refs.form.validate();
       const id = this.getIdByQuestion(this.select);
 
-      if (valid) {
+      if (valid && id) {
         axios.post('http://localhost:8000/session', {
           username: this.name,
         }).then(function (response) {
+          console.log(response.data)
           router.push(`/quiz/${id}`);
         });
       }

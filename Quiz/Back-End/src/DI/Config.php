@@ -50,8 +50,10 @@ class Config
             },
 
             // Services
-            StartSessionService::class => function () {
-                return new StartSessionService();
+            StartSessionService::class => function ($container) {
+                return new StartSessionService(
+                    $container->get(UserRepository::class)
+                );
             },
             GetSessionService::class => function () {
                 return new GetSessionService();

@@ -64,15 +64,30 @@ export default {
         console.error('Error fetching quiz:', error);
       }
     },
+    async sendAnswer() {
+      axios.post('http://localhost:8000/answer', {
+        answers: this.getIdByAnswer()
+      }).then(function (response) {
+        console.log(response.data)
+      });
+    },
     nextQuestion() {
+      console.log(this.getIdByAnswer(this));
+
       this.questionIndex++;
 
       this.question = this.quiz[this.questionIndex].question;
       this.options = this.quiz[this.questionIndex].answers;
 
       // Send to Database
+      //   this.sendAnswer();
       // ---
       this.selectedItems = [];
+    },
+    getIdByAnswer(){
+      return this.quiz[this.questionIndex].answers
+        .filter(obj => this.selectedItems.includes(obj.answer))
+        .map(obj => obj.id);
     }
   }
 }

@@ -7,7 +7,7 @@ use Casher1no\Printful\Infrastructure\Repository\Repository;
 use Casher1no\Printful\Models\AnswerId;
 use Casher1no\Printful\Models\QuestionId;
 use Casher1no\Printful\Models\TestId;
-use Casher1no\Printful\Models\UserId;
+use Casher1no\Printful\Models\User;
 
 class MySqlQuizRepository implements QuizRepository
 {
@@ -58,14 +58,15 @@ class MySqlQuizRepository implements QuizRepository
             ->fetchAll();
     }
 
-    public function answerQuestion(AnswerId $answerId, UserId $userId): void
+    public function answerQuestion(AnswerId $answerId, User $user): void
     {
         $db = $this->repository::connection();
         $db->createQueryBuilder()
             ->insert('user_answer')
             ->setValue('user_id', '?')
             ->setValue('question_answer_id', '?')
-            ->setParameter(0, $userId->id())
-            ->setParameter(1, $answerId->id());
+            ->setParameter(0, $user->id())
+            ->setParameter(1, $answerId->id())
+            ->execute();
     }
 }

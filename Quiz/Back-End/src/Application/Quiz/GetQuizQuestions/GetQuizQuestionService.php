@@ -31,9 +31,10 @@ class GetQuizQuestionService
         foreach ($questions as $question) {
 
             $questionAnswers = [];
-            $questionAnswers = array_filter($answers, function ($a) use ($question) {
-                if ($question['id'] === $a['question_id']) return $a;
-            });
+            $questionAnswers = array_values(array_filter($answers, function ($a) use ($question) {
+                return $question['id'] === $a['question_id'];
+            }));
+
 
             $result['questions'][] = [
                 'question' => $question['name'],

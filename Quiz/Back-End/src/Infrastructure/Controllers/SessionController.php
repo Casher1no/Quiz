@@ -22,8 +22,11 @@ class SessionController
 
     public function startSession(): array
     {
+        $requestPayload = json_decode(file_get_contents('php://input'), true);
+        $username = $requestPayload['username'];
+
         return $this->startSessionService->__invoke(
-            new StartSessionRequest($_POST['username'])
+            new StartSessionRequest($username)
         );
     }
 

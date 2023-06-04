@@ -26,9 +26,9 @@
             color="black"
             class="mt-10"
             block
-            @click="validate"
+            @click="nextQuestion"
           >
-            Validate
+            Next
           </v-btn>
         </div>
       </v-form>
@@ -37,20 +37,42 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
-    question: 'Question 1',
-    options: [
-      {id: 1, answer: 'option 1'},
-      {id: 2, answer: 'option 2'},
-      {id: 3, answer: 'option 3'},
-      {id: 4, answer: 'option 4'},
-    ],
+    quiz: null,
+    question: '',
+    questionIndex: 0,
+    questionCount: 0,
+    options: [],
     selectedItems: [],
   }),
+  mounted() {
+    this.getQuiz();
+  },
   methods: {
-    async getQuiz(id){
-      axios
+    async getQuiz() {
+      try {
+        const response = await axios.post('http://localhost:8000/quiz', {
+          quizId: this.$route.params.id,
+        });
+        this.quiz = response.data.questions;
+        this.question = this.quiz[this.questionIndex].question
+        this.options = this.quiz[this.questionIndex].answers;
+      } catch (error) {
+        console.error('Error fetching quiz:', error);
+      }
+    },
+    nextQuestion() {
+      this.questionIndex++;
+
+      this.question = this.quiz[this.questionIndex].question;
+      this.options = this.quiz[this.questionIndex].answers;
+
+      // Send to Database
+      // ---
+      this.selectedItems = [];
     }
   }
 }

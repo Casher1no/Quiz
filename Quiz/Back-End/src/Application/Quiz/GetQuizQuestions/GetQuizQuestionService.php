@@ -14,9 +14,9 @@ class GetQuizQuestionService
         $this->repository = $quizRepository;
     }
 
-    public function __invoke(): array
+    public function __invoke(GetQuizQuestionRequest $request): array
     {
-        $id = $_POST['quiz_id'];
+        $id = $request->id();
 
         $questions = $this->repository->getQuestions(new TestId($id));
         $questionIds = [];
@@ -31,7 +31,7 @@ class GetQuizQuestionService
         foreach ($questions as $question) {
 
             $questionAnswers = [];
-            $questionAnswers[] = array_filter($answers, function ($a) use ($question) {
+            $questionAnswers = array_filter($answers, function ($a) use ($question) {
                 if ($question['id'] === $a['question_id']) return $a;
             });
 

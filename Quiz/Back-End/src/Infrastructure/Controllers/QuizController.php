@@ -3,6 +3,7 @@
 namespace Casher1no\Printful\Infrastructure\Controllers;
 
 use Casher1no\Printful\Application\Quiz\GetAllQuizzes\GetAllQuizzesService;
+use Casher1no\Printful\Application\Quiz\GetQuizQuestions\GetQuizQuestionRequest;
 use Casher1no\Printful\Application\Quiz\GetQuizQuestions\GetQuizQuestionService;
 use Casher1no\Printful\Infrastructure\Persistence\Interfaces\QuizRepository;
 use Casher1no\Printful\Models\QuestionId;
@@ -22,8 +23,14 @@ class QuizController
     {
         return $this->getAllQuizzesService->__invoke();
     }
-    public function getQuizQuestions()
+
+    public function getQuizQuestions(): array
     {
-        return $this->getQuizQuestionService->__invoke();
+        $requestPayload = json_decode(file_get_contents('php://input'), true);
+        $quizId = $requestPayload['quizId'];
+
+        return $this->getQuizQuestionService->__invoke(
+            new GetQuizQuestionRequest($quizId)
+        );
     }
 }

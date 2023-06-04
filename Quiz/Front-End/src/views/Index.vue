@@ -64,7 +64,7 @@ export default {
       const id = this.getIdByQuestion(this.select);
 
       if (valid) {
-        axios.post('http://localhost:8000/api', {
+        axios.post('http://localhost:8000/session', {
           username: this.name,
         }).then(function (response) {
           router.push(`/quiz/${id}`);

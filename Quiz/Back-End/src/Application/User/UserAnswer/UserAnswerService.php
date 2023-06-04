@@ -2,7 +2,6 @@
 
 namespace Casher1no\Printful\Application\User\UserAnswer;
 
-use Casher1no\Printful\Application\Session\StartSession\StartSessionRequest;
 use Casher1no\Printful\Infrastructure\Persistence\Interfaces\QuizRepository;
 use Casher1no\Printful\Models\AnswerId;
 use Casher1no\Printful\Models\User;
@@ -16,15 +15,14 @@ class UserAnswerService
         $this->repository = $repository;
     }
 
-    public function __invoke(UserAnswerRequest $request): void
+    public function __invoke(UserAnswerRequest $request): array
     {
-        $user = new User(
-            $_SESSION['id'],
-            $_SESSION['username']
-        );
 
-        $answerId = new AnswerId($request->answerId());
 
-        $this->repository->answerQuestion($answerId, $user);
+        $questionId = new AnswerId($request->questionId());
+
+        return $this->repository->getAnswers($request->answers());
+
+        $this->repository->answerQuestion($questionId, $user);
     }
 }

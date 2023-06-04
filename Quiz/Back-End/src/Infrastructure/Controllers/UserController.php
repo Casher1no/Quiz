@@ -2,6 +2,7 @@
 
 namespace Casher1no\Printful\Infrastructure\Controllers;
 
+use Casher1no\Printful\Application\User\UserAnswer\UserAnswerRequest;
 use Casher1no\Printful\Application\User\UserAnswer\UserAnswerService;
 
 class UserController
@@ -13,13 +14,13 @@ class UserController
         $this->userAnswerService = $userAnswerService;
     }
 
-    public function answer():array
+    public function answer(): array
     {
         $requestPayload = json_decode(file_get_contents('php://input'), true);
         $selectedOptions = $requestPayload['answers'];
-        return $selectedOptions;
+        $questionId = $requestPayload['questionId'];
 
-        $this->userAnswerService->__invoke();
+        return $this->userAnswerService->__invoke(new UserAnswerRequest($questionId, $selectedOptions));
     }
 
 }

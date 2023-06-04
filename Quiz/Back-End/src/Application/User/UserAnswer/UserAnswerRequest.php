@@ -4,15 +4,23 @@ namespace Casher1no\Printful\Application\User\UserAnswer;
 
 class UserAnswerRequest
 {
-    private int $answerId;
+    private int $questionId;
+    private array $answers;
 
-    public function __construct(int $answerId)
+    public function __construct(int $questionId, array $answers)
     {
-        $this->answerId = $answerId;
+        $this->questionId = $questionId;
+        $this->answers = $answers;
     }
 
-    public function answerId(): int
+    public function questionId(): int
     {
-        return $this->answerId;
+        return $this->questionId;
     }
+
+    public function answers(): array
+    {
+        return $this->answers;
+    }
+
 }

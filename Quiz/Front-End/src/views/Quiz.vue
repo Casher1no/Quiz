@@ -31,6 +31,13 @@
             Next
           </v-btn>
         </div>
+        <v-progress-linear
+          :model-value="progress"
+          :height="12"
+          class="mt-16"
+        >
+        </v-progress-linear>
+
       </v-form>
     </div>
   </v-container>
@@ -41,6 +48,8 @@ import axios from "axios";
 
 export default {
   data: () => ({
+    progress: 0,
+    userId: null,
     quiz: null,
     question: '',
     questionIndex: 0,
@@ -49,7 +58,9 @@ export default {
     selectedItems: [],
   }),
   mounted() {
+    this.userId = this.$route.params.id;
     this.getQuiz();
+
   },
   methods: {
     async getQuiz() {
@@ -57,7 +68,9 @@ export default {
         const response = await axios.post('http://localhost:8000/quiz', {
           quizId: this.$route.params.id,
         });
+
         this.quiz = response.data.questions;
+        this.questionCount = this.quiz.length;
         this.question = this.quiz[this.questionIndex].question
         this.options = this.quiz[this.questionIndex].answers;
       } catch (error) {
@@ -66,25 +79,28 @@ export default {
     },
     async sendAnswer() {
       axios.post('http://localhost:8000/answer', {
-        answers: this.getIdByAnswer()
+        answers: this.getIdByAnswer(),
+        questionId: this.quiz[this.questionIndex].question_id,
+        userId: this.userId
       }).then(function (response) {
         console.log(response.data)
       });
     },
     nextQuestion() {
-      console.log(this.getIdByAnswer(this));
-
+      if (!this.selectedItems.length) return;
       this.questionIndex++;
+
+      this.progress = (this.questionIndex) / this.questionCount * 100;
 
       this.question = this.quiz[this.questionIndex].question;
       this.options = this.quiz[this.questionIndex].answers;
 
       // Send to Database
-      //   this.sendAnswer();
+      this.sendAnswer();
       // ---
       this.selectedItems = [];
     },
-    getIdByAnswer(){
+    getIdByAnswer() {
       return this.quiz[this.questionIndex].answers
         .filter(obj => this.selectedItems.includes(obj.answer))
         .map(obj => obj.id);

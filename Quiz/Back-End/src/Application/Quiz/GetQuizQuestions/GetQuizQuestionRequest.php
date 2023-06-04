@@ -15,4 +15,5 @@ class GetQuizQuestionRequest
     {
         return $this->id;
     }
+
 }

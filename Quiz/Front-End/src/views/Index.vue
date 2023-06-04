@@ -72,10 +72,11 @@ export default {
           username: this.name,
         }).then(function (response) {
           console.log(response.data)
-          router.push(`/quiz/${id}`);
-        });
+          router.push(`/quiz/${response.data.id}/${id}`);
+        })
       }
-    },
+    }
+    ,
     async getQuestions() {
       try {
         const response = await axios.get('http://localhost:8000/quiz');
@@ -83,11 +84,13 @@ export default {
       } catch (error) {
         console.error('Error fetching questions:', error);
       }
-    },
+    }
+    ,
     getIdByQuestion(question) {
       const foundQuestion = this.questions.find(q => q.name === question);
       return foundQuestion ? foundQuestion.id : null;
-    },
+    }
+    ,
   },
 };
 </script>

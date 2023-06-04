@@ -37,6 +37,7 @@ class GetQuizQuestionService
 
 
             $result['questions'][] = [
+                'question_id' => $question['id'],
                 'question' => $question['name'],
                 'answers' => $questionAnswers,
             ];

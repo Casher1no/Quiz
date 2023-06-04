@@ -16,18 +16,39 @@ class MySqlQuizRepository implements QuizRepository
         $this->repository = $repository;
     }
 
-    public function getTests()
+    public function getQuizzes()
     {
-        // TODO: Implement getTests() method.
+        $db = $this->repository::connection();
+        return $db->createQueryBuilder()
+            ->select("*")
+            ->from('quiz')
+            ->execute()
+            ->fetchAll();
+
+
     }
 
-    public function getQuestion(TestId $testId)
+    public function getQuestions(TestId $testId)
     {
-        // TODO: Implement getQuestion() method.
+        $db = $this->repository::connection();
+        return $db->createQueryBuilder()
+            ->select("*")
+            ->from('question')
+            ->where('test_id = ?')
+            ->setParameter(0, $testId->id())
+            ->execute()
+            ->fetchAll();
     }
 
     public function getAnswers(QuestionId $questionId)
     {
-        // TODO: Implement getAnswers() method.
+        $db = $this->repository::connection();
+        return $db->createQueryBuilder()
+            ->select("*")
+            ->from('question_answer')
+            ->where('question_id = ?')
+            ->setParameter(0, $questionId->id())
+            ->execute()
+            ->fetchAll();
     }
 }

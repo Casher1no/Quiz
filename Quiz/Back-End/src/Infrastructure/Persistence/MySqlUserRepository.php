@@ -18,7 +18,13 @@ class MySqlUserRepository implements UserRepository
 
     public function getUser(UserId $id)
     {
-        // TODO: Implement getUser() method.
+        $db = $this->repository::connection();
+        return $db->createQueryBuilder()
+            ->select("*")
+            ->from('question')
+
+            ->execute()
+            ->fetchAll();
     }
 
     public function getUserAnswers(UserId $id, TestId $testId)

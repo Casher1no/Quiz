@@ -3,13 +3,14 @@
 namespace Casher1no\Printful\Infrastructure\Repository {
 
     use Casher1no\Printful\Infrastructure\Repository\Repository;
+    use Doctrine\DBAL\Connection;
     use http\Exception\InvalidArgumentException;
 
     class MySqlRepository implements Repository
     {
         private static $connection = null;
 
-        public static function connection()
+        public static function connection(): Connection
         {
             try {
                 if (self::$connection === null) {

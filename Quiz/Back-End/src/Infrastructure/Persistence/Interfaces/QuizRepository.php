@@ -7,7 +7,7 @@ use Casher1no\Printful\Models\TestId;
 
 interface QuizRepository
 {
-    public function getTests();
-    public function getQuestion(TestId $testId);
+    public function getQuizzes();
+    public function getQuestions(TestId $testId);
     public function getAnswers(QuestionId $questionId);
 }

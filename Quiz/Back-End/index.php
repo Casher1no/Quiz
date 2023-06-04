@@ -6,6 +6,7 @@ use Casher1no\Printful\Router\RestApi;
 use FastRoute\Dispatcher;
 
 require 'vendor/autoload.php';
+session_start();
 
 CorsHandler::setUp();
 Container::build();
@@ -45,7 +46,7 @@ switch ($routeInfo[0]) {
         // Call the route handler with the parameters
         [$controllerClass, $method] = $handler;
         if (Container::getContainer()->has($controllerClass)) {
-            $controller = new $controllerClass(Container::getContainer()->get($controllerClass));
+            $controller = Container::getContainer()->get($controllerClass);
         } else {
             $controller = new $controllerClass();
         }

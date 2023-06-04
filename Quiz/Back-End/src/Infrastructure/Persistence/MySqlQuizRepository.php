@@ -42,15 +42,19 @@ class MySqlQuizRepository implements QuizRepository
             ->fetchAll();
     }
 
-    public function getAnswers(QuestionId $questionId): array
+    public function getAnswers(array $questionIds): array
     {
+
         $db = $this->repository::connection();
-        return $db->createQueryBuilder()
-            ->select("*")
-            ->from('question_answer')
-            ->where('question_id = ?')
-            ->setParameter(0, $questionId->id())
-            ->execute()
+
+        $sql = "SELECT * FROM question_answer WHERE question_id in (";
+
+        $sql .= implode(',', $questionIds);
+
+        $sql .= ")";
+
+        return $db->prepare($sql)
+            ->executeQuery()
             ->fetchAll();
     }
 

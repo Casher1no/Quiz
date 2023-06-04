@@ -3,6 +3,7 @@
 namespace Casher1no\Printful\DI;
 
 use Casher1no\Printful\Application\Quiz\GetAllQuizzes\GetAllQuizzesService;
+use Casher1no\Printful\Application\Quiz\GetQuizQuestions\GetQuizQuestionService;
 use Casher1no\Printful\Application\Session\ClearSession\ClearSessionService;
 use Casher1no\Printful\Application\Session\GetSession\GetSessionService;
 use Casher1no\Printful\Application\Session\StartSession\StartSessionService;
@@ -41,8 +42,10 @@ class Config
             },
             QuizController::class => function ($container) {
                 $getAllQuizzesService = $container->get(GetAllQuizzesService::class);
+                $getQuizQuestionService = $container->get(GetQuizQuestionService::class);
                 return new QuizController(
-                    $getAllQuizzesService
+                    $getAllQuizzesService,
+                    $getQuizQuestionService
                 );
             },
 

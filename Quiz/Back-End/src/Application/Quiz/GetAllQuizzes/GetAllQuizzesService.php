@@ -3,6 +3,7 @@
 namespace Casher1no\Printful\Application\Quiz\GetAllQuizzes;
 
 use Casher1no\Printful\Infrastructure\Persistence\Interfaces\QuizRepository;
+use Casher1no\Printful\Models\TestId;
 
 class GetAllQuizzesService
 {

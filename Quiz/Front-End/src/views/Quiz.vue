@@ -48,6 +48,11 @@ export default {
     ],
     selectedItems: [],
   }),
+  methods: {
+    async getQuiz(id){
+      axios
+    }
+  }
 }
 </script>
 

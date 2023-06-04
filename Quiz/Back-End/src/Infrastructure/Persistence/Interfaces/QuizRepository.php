@@ -13,7 +13,7 @@ interface QuizRepository
 
     public function getQuestions(TestId $testId): array;
 
-    public function getAnswers(QuestionId $questionId): array;
+    public function getAnswers(array $questionIds): array;
 
     public function answerQuestion(AnswerId $answerId, UserId $userId): void;
 }

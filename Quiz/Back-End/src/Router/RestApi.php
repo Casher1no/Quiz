@@ -16,12 +16,13 @@ class RestApi
 
         return FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
             // Session
-            $r->post('/api', [SessionController::class, 'startSession']);
+            $r->post('/session', [SessionController::class, 'startSession']);
             $r->get('/session', [SessionController::class, 'getSessionName']);
             $r->get('/clear-session', [SessionController::class], '');
 
             // Quiz
             $r->get('/quiz', [QuizController::class, 'getAllQuizzes']);
+            $r->post('/quiz',[QuizController::class, 'getQuizQuestions']);
         });
     }
 }

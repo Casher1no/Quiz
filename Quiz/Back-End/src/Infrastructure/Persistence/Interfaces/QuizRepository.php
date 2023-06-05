@@ -17,4 +17,6 @@ interface QuizRepository
     public function getAnswers(array $questionIds): array;
 
     public function answerQuestion(int $correctAnswers, int $totalAnswers, QuizId $quizId, User $user): void;
+
+    public function getResults(User $user, QuizId $quizId): array;
 }

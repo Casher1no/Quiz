@@ -105,7 +105,7 @@ export default {
 
       if (this.questionIndex + 1 > this.questionCount) {
         await this.sendAnswers();
-        await router.push(`/result/${this.userId}/${this.$route.params.id}`)
+        await router.push(`/result/${this.$route.params.userId}/${this.$route.params.id}`)
       }
 
       this.progress = (this.questionIndex) / this.questionCount * 100;

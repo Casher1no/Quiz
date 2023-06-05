@@ -4,6 +4,7 @@ namespace Casher1no\Printful\DI;
 
 use Casher1no\Printful\Application\Quiz\GetAllQuizzes\GetAllQuizzesService;
 use Casher1no\Printful\Application\Quiz\GetQuizQuestions\GetQuizQuestionService;
+use Casher1no\Printful\Application\Quiz\GetQuizResults\GetQuizResultsService;
 use Casher1no\Printful\Application\Session\ClearSession\ClearSessionService;
 use Casher1no\Printful\Application\Session\GetSession\GetSessionService;
 use Casher1no\Printful\Application\Session\StartSession\StartSessionService;
@@ -36,16 +37,16 @@ class Config
             // Controllers
             SessionController::class => function ($container) {
                 $startSessionService = $container->get(StartSessionService::class);
-                $getSessionService = $container->get(GetSessionService::class);
-                $clearSessionService = $container->get(ClearSessionService::class);
-                return new SessionController($startSessionService, $getSessionService, $clearSessionService);
+                return new SessionController($startSessionService);
             },
             QuizController::class => function ($container) {
                 $getAllQuizzesService = $container->get(GetAllQuizzesService::class);
                 $getQuizQuestionService = $container->get(GetQuizQuestionService::class);
+                $getQuizResultService = $container->get(GetQuizResultsService::class);
                 return new QuizController(
                     $getAllQuizzesService,
-                    $getQuizQuestionService
+                    $getQuizQuestionService,
+                    $getQuizResultService
                 );
             },
 
@@ -55,15 +56,18 @@ class Config
                     $container->get(UserRepository::class)
                 );
             },
-            GetSessionService::class => function () {
-                return new GetSessionService();
-            },
-            ClearSessionService::class => function () {
-                return new ClearSessionService();
-            },
             GetAllQuizzesService::class => function ($container) {
                 return new GetAllQuizzesService(
                     $container->get(QuizRepository::class)
+                );
+            },
+            GetQuizQuestionService::class => function ($container) {
+                return new GetQuizQuestionService($container->get(QuizRepository::class));
+            },
+            GetQuizResultsService::class => function ($container) {
+                return new GetQuizResultsService(
+                    $container->get(QuizRepository::class),
+                    $container->get(UserRepository::class)
                 );
             }
 

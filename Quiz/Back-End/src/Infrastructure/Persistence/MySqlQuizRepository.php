@@ -62,7 +62,7 @@ class MySqlQuizRepository implements QuizRepository
     public function answerQuestion(int $correctAnswers, int $totalAnswers, QuizId $quizId, User $user): void
     {
         $db = $this->repository::connection();
-        $qb = $db->createQueryBuilder()
+        $db->createQueryBuilder()
             ->insert('user_answer')
             ->setValue('user_id', '?')
             ->setValue('quiz_id', '?')
@@ -74,5 +74,19 @@ class MySqlQuizRepository implements QuizRepository
             ->setParameter(3, $totalAnswers)
             ->execute();
 
+    }
+
+    public function getResults(User $user, QuizId $quizId): array
+    {
+        $db = $this->repository::connection();
+        return $db->createQueryBuilder()
+            ->select("*")
+            ->from('user_answer')
+            ->where('user_id', '?')
+            ->andWhere('quiz_id', '?')
+            ->setParameter(0, $user->id())
+            ->setParameter(1, $quizId->id())
+            ->execute()
+            ->fetchAll();
     }
 }

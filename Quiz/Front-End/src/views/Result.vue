@@ -5,6 +5,9 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+import router from "@/router";
+
 export default {
   data: () => ({
     name: '',
@@ -12,12 +15,23 @@ export default {
     allQuestions: 4,
   }),
   mounted() {
-
+    this.loadResults();
   },
-  methods:{
-    async loadResults()
-    {
-      
+  methods: {
+    async loadResults() {
+      try {
+        const response = await axios.post('http://localhost:8000/results', {
+          quizId: this.$route.params.quizId,
+          userId: this.$route.params.userId,
+        });
+
+        this.name = response.data.user.name;
+        this.correctAnswers = response.data.results.correct_answers;
+        this.allQuestions = response.data.results.total_answers
+      } catch (error) {
+        console.error('Error fetching quiz:', error);
+        await router.push('/');
+      }
     }
   }
 }

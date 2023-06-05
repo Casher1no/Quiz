@@ -90,7 +90,7 @@ export default {
     async sendAnswers() {
       await axios.post('http://localhost:8000/answer', {
         answers: this.answers,
-        userId: this.userId,
+        userId: this.$route.params.userId,
         quizId: this.$route.params.id,
         questions: this.quiz
       }).then(function (response) {

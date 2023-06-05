@@ -30,7 +30,6 @@ export default {
         this.allQuestions = response.data.results.total_answers
       } catch (error) {
         console.error('Error fetching quiz:', error);
-        await router.push('/');
       }
     }
   }

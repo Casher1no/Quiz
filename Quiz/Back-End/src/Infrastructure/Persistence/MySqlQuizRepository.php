@@ -6,6 +6,7 @@ use Casher1no\Printful\Infrastructure\Persistence\Interfaces\QuizRepository;
 use Casher1no\Printful\Infrastructure\Repository\Repository;
 use Casher1no\Printful\Models\AnswerId;
 use Casher1no\Printful\Models\QuestionId;
+use Casher1no\Printful\Models\QuizId;
 use Casher1no\Printful\Models\TestId;
 use Casher1no\Printful\Models\User;
 
@@ -58,23 +59,20 @@ class MySqlQuizRepository implements QuizRepository
             ->fetchAll();
     }
 
-    public function answerQuestion(array $answerIds, QuestionId $questionId, User $user): void
+    public function answerQuestion(int $correctAnswers, int $totalAnswers, QuizId $quizId, User $user): void
     {
         $db = $this->repository::connection();
         $qb = $db->createQueryBuilder()
             ->insert('user_answer')
             ->setValue('user_id', '?')
-            ->setValue('question_answer_id', '?')
+            ->setValue('quiz_id', '?')
+            ->setValue('correct_answers', '?')
+            ->setValue('total_answers', '?')
             ->setParameter(0, $user->id())
-            ->setParameter(1, $questionId->id());
+            ->setParameter(1, $quizId->id())
+            ->setParameter(2, $correctAnswers)
+            ->setParameter(3, $totalAnswers)
+            ->execute();
 
-        $parameterCount = 2;
-        foreach ($answerIds as $answerId) {
-            $qb->setValue('answer_id' . $parameterCount, '?')
-                ->setParameter($parameterCount, $answerId);
-            $parameterCount++;
-        }
-
-        $qb->execute();
     }
 }

@@ -71,6 +71,7 @@ export default {
         axios.post('http://localhost:8000/session', {
           username: this.name,
         }).then(function (response) {
+          console.log(response.data)
           router.push(`/quiz/${response.data.id}/${id}`);
         })
       }

@@ -17,11 +17,12 @@ class UserController
     public function answer(): void
     {
         $requestPayload = json_decode(file_get_contents('php://input'), true);
-        $selectedOptions = $requestPayload['answers'];
-        $questionId = $requestPayload['questionId'];
+        $answers = $requestPayload['answers'];
+        $quizId = $requestPayload['quizId'];
         $userId = $requestPayload['userId'];
+        $questions = $requestPayload['questions'];
 
-        $this->userAnswerService->__invoke(new UserAnswerRequest($userId, $questionId, $selectedOptions));
+        $this->userAnswerService->__invoke(new UserAnswerRequest($userId, $quizId, $answers, $questions));
     }
 
 }

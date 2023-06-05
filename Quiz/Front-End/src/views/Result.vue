@@ -7,10 +7,19 @@
 <script>
 export default {
   data: () => ({
-    name: 'John',
+    name: '',
     correctAnswers: 3,
     allQuestions: 4,
   }),
+  mounted() {
+
+  },
+  methods:{
+    async loadResults()
+    {
+      
+    }
+  }
 }
 
 </script>

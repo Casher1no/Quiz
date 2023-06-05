@@ -80,26 +80,33 @@ export default {
         await router.push('/');
       }
     },
-    testActive(){
-       if(this.questionIndex !== this.questionCount){
-         return "NEXT";
-       }else{
-         return "Finish";
-       }
+    testActive() {
+      if (this.questionIndex !== this.questionCount) {
+        return "NEXT";
+      } else {
+        return "Finish";
+      }
+    },
+    async sendAnswers() {
+      await axios.post('http://localhost:8000/answer', {
+        answers: this.answers,
+        userId: this.userId,
+        quizId: this.$route.params.id,
+        questions: this.quiz
+      }).then(function (response) {
+        console.log(response.data)
+      })
 
     },
-    nextQuestion() {
+    async nextQuestion() {
       if (!this.selectedItems.length) return;
       this.questionIndex++;
-
-      if(this.questionIndex + 1 > this.questionCount){
-        console.log(this.answers);
-        router.push('/result')
-      }
       this.answers.push(this.selectedItems);
 
-      console.log(this.questionIndex)
-      console.log(this.questionCount)
+      if (this.questionIndex + 1 > this.questionCount) {
+        await this.sendAnswers();
+        await router.push(`/result/${this.userId}/${this.$route.params.id}`)
+      }
 
       this.progress = (this.questionIndex) / this.questionCount * 100;
 
@@ -107,15 +114,9 @@ export default {
       this.options = this.quiz[this.questionIndex].answers;
 
 
-
       this.selectedItems = [];
 
     },
-    getIdByAnswer() {
-      return this.quiz[this.questionIndex].answers
-        .filter(obj => this.selectedItems.includes(obj.answer))
-        .map(obj => obj.id);
-    }
   }
 }
 </script>

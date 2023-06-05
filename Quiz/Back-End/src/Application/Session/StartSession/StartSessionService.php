@@ -24,13 +24,13 @@ class StartSessionService
         $user = $this->repository->getUserByName($name);
         if (empty($user)) {
             $this->repository->insertUser($request->username());
-            $_SESSION['id'] = $this->repository->getUserByName($name);
+            $_SESSION['id'] = $this->repository->getUserByName($name)[0]['id'];
         } else {
             $_SESSION['id'] = $user[0]['id'];
         }
 
         $_SESSION['username'] = $request->username();
-        
+
         return [
             'username' => $_SESSION['username'],
             'id' => $_SESSION['id']

@@ -5,6 +5,7 @@ namespace Casher1no\Printful\Application\User\UserAnswer;
 use Casher1no\Printful\Infrastructure\Persistence\Interfaces\QuizRepository;
 use Casher1no\Printful\Models\AnswerId;
 use Casher1no\Printful\Models\QuestionId;
+use Casher1no\Printful\Models\QuizId;
 use Casher1no\Printful\Models\User;
 
 class UserAnswerService
@@ -19,10 +20,31 @@ class UserAnswerService
     public function __invoke(UserAnswerRequest $request): void
     {
         $user = new User($request->userId());
-        $question = new QuestionId($request->questionId());
-        $answers =$request->answers();
+        $quizId = new QuizId($request->quizId());
+        $question = $request->questions();
+        $answers = $request->answers();
 
-        $this->repository->answerQuestion($answers, $question, $user);
+        // Check how many answers are correct
+        $answeredQuestions = 0;
 
+        $questions = count($question);
+        for ($i = 0; $i < $questions; $i++) {
+            $maxAnswers = 0;
+            $answered = 0;
+
+            foreach ($question[$i]['answers'] as $q) {
+                if ($q['is_correct'] == 1) {
+                    $maxAnswers++;
+                }
+                if (in_array($q['answer'], $answers[$i]) && $q['is_correct'] == 1) {
+                    $answered++;
+                }
+            }
+            if ($maxAnswers == $answered) {
+                $answeredQuestions++;
+            }
+        }
+
+        $this->repository->answerQuestion($answeredQuestions, $questions, $quizId, $user);
     }
 }

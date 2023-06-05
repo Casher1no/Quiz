@@ -16,6 +16,10 @@ class UserController
 
     public function answer(): void
     {
+        /*
+         * User submits his test
+         */
+
         $requestPayload = json_decode(file_get_contents('php://input'), true);
         $answers = $requestPayload['answers'];
         $quizId = $requestPayload['quizId'];

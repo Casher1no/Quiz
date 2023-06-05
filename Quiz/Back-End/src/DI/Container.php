@@ -6,6 +6,9 @@ use DI\ContainerBuilder;
 
 class Container
 {
+    /*
+     * DI
+     */
     private static ContainerBuilder $builder;
     private static \DI\Container $container;
 

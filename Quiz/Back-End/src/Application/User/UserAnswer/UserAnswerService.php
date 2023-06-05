@@ -45,6 +45,10 @@ class UserAnswerService
             }
         }
 
+        /*
+         * Saves answer results in Database
+         */
+
         $this->repository->answerQuestion($answeredQuestions, $questions, $quizId, $user);
     }
 }

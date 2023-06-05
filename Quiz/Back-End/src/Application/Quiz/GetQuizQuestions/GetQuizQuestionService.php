@@ -16,7 +16,12 @@ class GetQuizQuestionService
 
     public function __invoke(GetQuizQuestionRequest $request): array
     {
+        // Quiz id
         $id = $request->id();
+
+        /*
+         * Gets quiz questions with answers
+         */
 
         $questions = $this->repository->getQuestions(new TestId($id));
         $questionIds = [];

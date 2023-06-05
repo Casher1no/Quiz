@@ -38,7 +38,7 @@ class QuizController
         );
     }
 
-    public function getResults(): array
+    public function getQuizResults(): array
     {
         $requestPayload = json_decode(file_get_contents('php://input'), true);
         $quizId = $requestPayload['quizId'];

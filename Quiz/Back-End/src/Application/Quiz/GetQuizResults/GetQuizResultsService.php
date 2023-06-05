@@ -23,6 +23,10 @@ class GetQuizResultsService
         $user = new User($request->userId());
         $quizId = new QuizId($request->quizId());
 
+        /*
+         * Gets Users Test Results
+         */
+
         $results = $this->quizRepository->getResults($user, $quizId);
         $user = $this->userRepository->getUser($user);
 

@@ -20,7 +20,7 @@ class RestApi
             // Quiz
             $r->get('/quiz', [QuizController::class, 'getAllQuizzes']);
             $r->post('/quiz', [QuizController::class, 'getQuizQuestions']);
-            $r->post('/results',[QuizController::class, 'getResults']);
+            $r->post('/results', [QuizController::class, 'getQuizResults']);
 
             // User
             $r->post('/answer', [UserController::class, 'answer']);

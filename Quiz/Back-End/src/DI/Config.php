@@ -20,6 +20,9 @@ use DI;
 
 class Config
 {
+    /*
+     * DI config
+     */
     public static function DI_CONFIG(): array
     {
         return [

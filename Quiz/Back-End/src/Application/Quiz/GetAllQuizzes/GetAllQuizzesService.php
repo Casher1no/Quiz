@@ -15,6 +15,7 @@ class GetAllQuizzesService
 
     public function __invoke(): array
     {
+        // Returns all quizzes names with ids
         return ['questions' => $this->repository->getQuizzes()];
     }
 }

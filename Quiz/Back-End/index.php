@@ -8,6 +8,7 @@ use FastRoute\Dispatcher;
 require 'vendor/autoload.php';
 session_start();
 
+// Sets up Cors to handle requests and initializes DI
 CorsHandler::setUp();
 Container::build();
 

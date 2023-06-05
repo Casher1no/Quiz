@@ -15,6 +15,10 @@ class StartSessionService
 
     public function __invoke(StartSessionRequest $request): array
     {
+        /*
+         * Creates session with username and id when test starts
+         */
+
         if (empty($request->username())) {
             return ['error' => 'no username'];
         }
